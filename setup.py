@@ -1,10 +1,14 @@
+import os
 from setuptools import setup, find_packages
+
+base_path= os.path.abspath(os.path.dirname(__file__))
+readme_path= os.path.join(base_path, 'README.rst')
 
 setup(
     name='django-debug-toolbar',
     version=__import__('debug_toolbar').__version__,
     description='A configurable set of panels that display various debug information about the current request/response.',
-    long_description=open('README.rst').read(),
+    long_description=open(readme_path).read(),
     # Get more strings from http://www.python.org/pypi?:action=list_classifiers
     author='Rob Hudson',
     author_email='rob@cogit8.org',
