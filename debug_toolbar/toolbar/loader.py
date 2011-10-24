@@ -8,7 +8,8 @@ from django.template.loader import render_to_string
 from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 
-INCLUDE_JQUERY = getattr(settings.DEBUG_TOOLBAR_CONFIG, 'INCLUDE_JQUERY ', True)
+DEBUG_TOOLBAR_CONFIG = getattr(settings, 'DEBUG_TOOLBAR_CONFIG')
+INCLUDE_JQUERY = DEBUG_TOOLBAR_CONFIG.get('INCLUDE_JQUERY', True)
 
 class DebugToolbar(object):
 
