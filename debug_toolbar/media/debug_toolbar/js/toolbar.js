@@ -198,4 +198,4 @@ window.djdt = (function(window, document, jQuery) {
 		djdt.init();
 	});
 	return djdt;
-}(window, document, jQuery.noConflict()));
+}(window, document, jQuery));
