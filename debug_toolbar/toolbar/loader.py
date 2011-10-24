@@ -8,6 +8,8 @@ from django.template.loader import render_to_string
 from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 
+INCLUDE_JQUERY = getattr(settings.DEBUG_TOOLBAR_CONFIG, 'INCLUDE_JQUERY ', True)
+
 class DebugToolbar(object):
 
     def __init__(self, request):
@@ -86,9 +88,17 @@ class DebugToolbar(object):
         media_path = os.path.join(os.path.dirname(__file__), os.pardir, 'media', 'debug_toolbar')
         
         context = self.template_context.copy()
+
+        # djdt overrides my own already included copy of jquery? wtf man...
+        js= ''
+        if INCLUDE_JQUERY:
+            js+= open(os.path.join(media_path, 'js', 'jquery.js'), 'r').read()
+        js+= open(os.path.join(media_path, 'js', 'jquery.cookie.js'), 'r').read()
+        js+= open(os.path.join(media_path, 'js', 'toolbar.js'), 'r').read()
+
         context.update({
             'panels': self.panels,
-            'js': mark_safe(open(os.path.join(media_path, 'js', 'toolbar.min.js'), 'r').read()),
+            'js': mark_safe(js),
             'css': mark_safe(open(os.path.join(media_path, 'css', 'toolbar.min.css'), 'r').read()),
         })
 
